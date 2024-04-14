@@ -1,0 +1,20 @@
+spring:
+  application:
+    name: user-service
+
+server:
+  port: 0
+    # eureka server에서는 application.yml에 등록된 포트 번호를 기준으로 등록
+    # port: 0 으로 지정하여 랜덤 포트 사용 시, 인스턴스 1개로 사용됨
+
+
+eureka:
+  instance:
+    instance-id: ${spring.cloud.client.hostname}:${spring.application.instance_id:${random.value}}
+    # 랜덤 포트 사용할 경우, 인스턴스 아이디를 지정
+  client:
+    register-with-eureka: true
+    fetch-registry: true
+    service-url:
+      defaultZone: http://localhost:8761/eureka # eureka server url
+
